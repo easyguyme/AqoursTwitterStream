@@ -6,4 +6,4 @@ TWITTER_TOKEN = { # 在引号中粘贴你的 Twitter 应用程序授权码
     'consumer_secret': 'WR1L7OEtOlAqf7dyWg5LBwpMFBUiFYSg2VJKUR0sbJ3D70lol7',
     'access_token_key': '391360956-vYkeiChTibFaEnN2mbg19r4KCzqPzk8GVXXEPq4Z',
     'access_token_secret': 'A89An287b9WAgxi6Qn7Y9ggP5nSuLnECy3rQsQGAimVyz'}
-CHAT_ID = '@MagaFunbotfield' # 在引号中粘贴你的 chat_id 或频道名称
+CHAT_ID = '158754719' # 在引号中粘贴你的 chat_id 或频道名称
