@@ -41,7 +41,7 @@ def main():
 
                     if line['is_quote_status'] == True: # 如果有转推评论，转发原推特媒体
                         print u'检测到了 Aqours 成员的转推评论。'
-                        if line['quoted_status']['truncated'] == False: # 如果纯转推推文是短推特
+                        if line['quoted_status']['truncated'] == False: # 如果转推推文是短推特
                             bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<b>' + line['quoted_status']['user']['name'] + u'</b>转推并引用了如下推文：\n' + line['quoted_status']['text'], parse_mode="HTML", disable_web_page_preview=True)
                             if line['quoted_status']['extended_entities']['media'][0]['type'] == 'photo':
                                 for i in range(0, len(line['quoted_status']['extended_entities']['media'])):
@@ -50,7 +50,7 @@ def main():
                             else:
                                 pass
                             bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>转推评论为：</b>\n' + line['text'], parse_mode="HTML", disable_web_page_preview=True)
-                        if line['quoted_status']['truncated'] == True: # 如果纯转推推文是长推特
+                        if line['quoted_status']['truncated'] == True: # 如果转推推文是长推特
                             bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<b>' + line['quoted_status']['user']['name'] + u'</b>转推并引用了如下推文：\n' + line['quoted_status']['extended_tweet']['full_text'], parse_mode="HTML", disable_web_page_preview=True)
                             if line['quoted_status']['extended_tweet']['extended_entities']['media'][0]['type'] == 'photo': # 转发图片
                                 for i in range(0, len(line['quoted_status']['extended_tweet']['extended_entities']['media'])): 
@@ -69,7 +69,7 @@ def main():
                                 except:
                                     bot.send_message(chat_id=cfg.CHAT_ID, text=u'Failed to get content, this is possibly due to a timeout error. \n发生错误，有可能是由于网络错误。程序将重启。')
                                     del mp4[:]
-
+                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>转推评论为：</b>\n' + line['text'], parse_mode="HTML", disable_web_page_preview=True)
 
                     if line.has_key('retweeted_status') == True and line['is_quote_status'] == False: # 如果是纯转推，转发媒体
                         print u'检测到了 Aqours 成员的纯转推。'
