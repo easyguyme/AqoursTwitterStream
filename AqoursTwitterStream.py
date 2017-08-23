@@ -43,10 +43,13 @@ def main():
                         print u'检测到了 Aqours 成员的转推评论。'
                         if line['quoted_status']['truncated'] == False: # 如果转推推文是短推特
                             bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<b>' + line['quoted_status']['user']['name'] + u'</b>转推并引用了如下推文：\n' + line['quoted_status']['text'], parse_mode="HTML", disable_web_page_preview=True)
-                            if line['quoted_status']['extended_entities']['media'][0]['type'] == 'photo':
-                                for i in range(0, len(line['quoted_status']['extended_entities']['media'])):
-                                    print line['quoted_status']['extended_entities']['media'][i]['media_url_https']
-                                    bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['quoted_status']['extended_entities']['media'][i]['media_url_https'], caption='原推特媒体')# 转发图片
+                            if line.has_key('extended_entites') == True: # 检查是否有媒体，短推特不一定有媒体
+                                if line['quoted_status']['extended_entities']['media'][0]['type'] == 'photo':
+                                    for i in range(0, len(line['quoted_status']['extended_entities']['media'])):
+                                        print line['quoted_status']['extended_entities']['media'][i]['media_url_https']
+                                        bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['quoted_status']['extended_entities']['media'][i]['media_url_https'], caption='原推特媒体')# 转发图片
+                                else:
+                                    pass
                             else:
                                 pass
                             bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>转推评论为：</b>\n' + line['text'], parse_mode="HTML", disable_web_page_preview=True)
@@ -98,7 +101,7 @@ def main():
                                         bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['retweeted_status']['extended_entities']['media'][i]['media_url_https'], caption='原推文媒体')
                                 else: # 如果没有媒体
                                     pass
-                        if line['retweeted_status']['truncated'] == True: # 如果纯转推推文是长推特
+                        if line['retweeted_status']['truncated'] == True: # 如果纯转推推文是长推特，则一定有媒体
                             bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<b>' + line['retweeted_status']['user']['name'] + u'</b>转推了如下推文：\n' + line['retweeted_status']['extended_tweet']['full_text'], parse_mode="HTML", disable_web_page_preview=True)
                             if line['retweeted_status']['extended_tweet']['extended_entities']['media'][0]['type'] == 'photo': # 转发图片
                                 for i in range(0, len(line['retweeted_status']['extended_tweet']['extended_entities']['media'])): 
