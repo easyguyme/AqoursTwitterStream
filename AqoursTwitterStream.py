@@ -43,7 +43,7 @@ def main():
                         print u'检测到了 Aqours 成员的转推评论。'
                         if line['quoted_status']['truncated'] == False: # 如果转推推文是短推特
                             bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<b>' + line['quoted_status']['user']['name'] + u'</b>转推并引用了如下推文：\n' + line['quoted_status']['text'], parse_mode="HTML", disable_web_page_preview=True)
-                            if line['quoted_status']['entites'].has_key('media') == True: # 检查原推文是否有媒体，短推特不一定有媒体
+                            if line['quoted_status']['entities'].has_key('media') == True: # 检查原推文是否有媒体，短推特不一定有媒体
                                 if line['quoted_status']['extended_entities']['media'][0]['type'] == 'photo':
                                     for i in range(0, len(line['quoted_status']['extended_entities']['media'])):
                                         print line['quoted_status']['extended_entities']['media'][i]['media_url_https']
