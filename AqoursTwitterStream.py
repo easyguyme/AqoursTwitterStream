@@ -43,7 +43,7 @@ def main():
                         print u'检测到了 Aqours 成员的转推评论。'
                         if line['quoted_status']['truncated'] == False: # 如果转推推文是短推特
                             bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<b>' + line['quoted_status']['user']['name'] + u'</b>转推并引用了如下推文：\n' + line['quoted_status']['text'], parse_mode="HTML", disable_web_page_preview=True)
-                            if line.has_key('extended_entites') == True: # 检查是否有媒体，短推特不一定有媒体
+                            if line['quoted_status']['entites'].has_key('media') == True: # 检查原推文是否有媒体，短推特不一定有媒体
                                 if line['quoted_status']['extended_entities']['media'][0]['type'] == 'photo':
                                     for i in range(0, len(line['quoted_status']['extended_entities']['media'])):
                                         print line['quoted_status']['extended_entities']['media'][i]['media_url_https']
@@ -163,9 +163,11 @@ def main():
                                 try:
                                     bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='推文媒体')
                                     del mp4[:]
+                                    continue
                                 except:
                                     bot.send_message(chat_id=cfg.CHAT_ID, text=u'Failed to get content, this is possibly due to a timeout error. \n发生错误，有可能是由于网络错误。')
                                     del mp4[:]
+                                    continue
                             if line['entities']['media'][0]['type'] == 'photo': # 媒体为图片
                                 for i in range(0, len(line['extended_entities']['media'])):
                                     print line['extended_entities']['media'][i]['media_url_https']
