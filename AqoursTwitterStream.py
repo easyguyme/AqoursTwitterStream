@@ -91,7 +91,7 @@ def main():
                                         bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='原推文媒体')
                                         del mp4[:]
                                     except:
-                                        bot.send_message(chat_id=cfg.CHAT_ID, text=u'Failed to get content, this is possibly due to a timeout error. \n发生错误，有可能是由于网络错误。程序将重启。')
+                                        bot.send_message(chat_id=cfg.CHAT_ID, text=u'Failed to get content, this is possibly due to a timeout error. \n发生错误，有可能是由于网络错误。程序需要重启。')
                                         del mp4[:]
 
                                 if line['retweeted_status']['entities']['media'][0]['type'] == 'photo': # 如果媒体是图片
@@ -144,7 +144,7 @@ def main():
                                 bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='推文媒体')
                                 del mp4[:]
                             except:
-                                bot.send_message(chat_id=cfg.CHAT_ID, text=u'Failed to get content, this is possibly due to a timeout error. \n发生错误，有可能是由于网络错误。程序将重启。')
+                                bot.send_message(chat_id=cfg.CHAT_ID, text=u'Failed to get content, this is possibly due to a timeout error. \n发生错误，有可能是由于网络错误。程序需要重启。')
                                 del mp4[:]
 
                     elif line['in_reply_to_status_id'] == None and line.has_key('retweeted_status') == False and line['is_quote_status'] == False and line['truncated'] == False: # 如果不是转推也不是回复也不是引用推特，则为原创推特，需要转发媒体。
@@ -165,7 +165,7 @@ def main():
                                     del mp4[:]
                                     continue
                                 except:
-                                    bot.send_message(chat_id=cfg.CHAT_ID, text=u'Failed to get content, this is possibly due to a timeout error. \n发生错误，有可能是由于网络错误。')
+                                    bot.send_message(chat_id=cfg.CHAT_ID, text=u'Failed to get content, this is possibly due to a timeout error. \n发生错误，有可能是由于网络错误。程序需要重启。')
                                     del mp4[:]
                                     continue
                             if line['entities']['media'][0]['type'] == 'photo': # 媒体为图片
