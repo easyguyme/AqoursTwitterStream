@@ -20,7 +20,7 @@ api = twitter.Api(consumer_key=cfg.TWITTER_TOKEN['consumer_key'],
 
 bot.send_message(chat_id=cfg.CHAT_ID, text='''程序已启动。''')
 
-AQOURS = ['1393924040', '3692123006', '2598273120', '746579242431877121', '3801397033', '260986258', '4065828913', '3177547086', '3177540343', '391360956']
+AQOURS = ['1393924040', '3692123006', '2598273120', '746579242431877121', '3801397033', '260986258', '4065828913', '3177547086', '3177540343', '391360956', '347849994']
 mp4 = [] # 定义一个列表来筛选最高质量的视频
 
 @retry
@@ -50,8 +50,15 @@ def main():
                                     for i in range(0, len(line['quoted_status']['extended_entities']['media'])):
                                         print line['quoted_status']['extended_entities']['media'][i]['media_url_https']
                                         bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['quoted_status']['extended_entities']['media'][i]['media_url_https'], caption='原推特图片')# 转发图片
-                                else:
-                                    pass # Todo: 转发视频
+                                elif line['quoted_status']['extended_entities']['media'][0]['type'] == 'video': # 转发视频
+                                    for m in range(0, len(line['quoted_status']['extended_entities']['media'][0]['video_info']['variants'])):
+                                        if line['quoted_status']['extended_entities']['media'][0]['video_info']['variants'][m]['content_type'] == 'video/mp4':
+                                            mp4.append(line['quoted_status']['extended_entities']['media'][0]['video_info']['variants'][m])
+                                        else:
+                                            pass
+                                    print max(mp4, key=operator.itemgetter('bitrate'))['url']
+                                    bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='推文视频')
+                                    del mp4[:]
                             else:
                                 pass
                             bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>转推评论为：</b>\n' + line['text'], parse_mode="HTML", disable_web_page_preview=True)
