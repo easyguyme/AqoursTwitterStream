@@ -189,7 +189,9 @@ def main():
                         print u'检测到原创更新。'
                         bot.send_message(chat_id=cfg.CHAT_ID, text=u'''<b>以下为推特内容</b>\n''' + line['text'], parse_mode="HTML", disable_web_page_preview=True)
                         getMediaForPost(line) 
-try:
-    main()
-except:
-    bot.send_message(chat_id=cfg.CHAT_ID, text=u'''程序可能出现网络错误，请重启。''')
+while True:
+    try:
+        main()
+    except:
+        bot.send_message(chat_id=cfg.CHAT_ID, text=u'''程序可能出现网络错误，正在重启。''')
+        continue
