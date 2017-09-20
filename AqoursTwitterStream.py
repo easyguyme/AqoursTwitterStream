@@ -43,6 +43,18 @@ def getMediaForPost(line):
     else: # 有媒体
         pass
 
+def getMediaForRepling():
+    if line['entities'].has_key('media') == True:
+        if line['entities']['media'][0]['type'] == 'photo': # 媒体为图片
+            print u'回复媒体是图片'
+            for i in range(0, len(line['extended_entities']['media'])):
+                print line['extended_entities']['media'][i]['media_url_https']
+                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['extended_entities']['media'][i]['media_url_https'], caption='回复附带图片')
+        else:
+            pass
+    else:
+        pass
+
 def getMediaForLongTweet(line):
     if line['extended_tweet']['extended_entities']['media'][0]['type'] == 'photo': # 转发图片
         print u'媒体是图片'
@@ -151,34 +163,35 @@ def main():
                     print u'检测到了 Aqours 成员的更新。'
                     f.write(json.dumps(line)) # 输出一个 log 文件
                     f.write('\n')
-                    bot.send_message(chat_id=cfg.CHAT_ID, text=u'嗨嗨嗨，醒一醒，<b>'+ line['user']['name'] + u'</b>推特更新了！', parse_mode="HTML")
+                    bot.send_message(chat_id=cfg.CHAT_ID, text=u'''嗨嗨嗨，醒一醒，<a href="https://twitter.com/{0}">{1}</a>推特更新了！'''.format(line['user']['screen_name'], line['user']['name']), parse_mode="HTML", disable_web_page_preview=True)
 
                     if line['is_quote_status'] == True: # 如果有转推评论，转发原推特媒体
                         print u'检测到了 Aqours 成员的转推评论。'
                         if line['quoted_status']['truncated'] == False: # 如果转推推文是短推特
                             print u'转推推文是短推文'
-                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<b>' + line['quoted_status']['user']['name'] + u'</b>转推并引用了如下推文：\n' + line['quoted_status']['text'], parse_mode="HTML", disable_web_page_preview=True)
+                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<a href="https://twitter.com/{0}">{1}</a>转推并引用了如下推文：\n{2}'.format(['quoted_status']['user']['screen_name'], line['quoted_status']['user']['name'], line['quoted_status']['text']), parse_mode="HTML", disable_web_page_preview=True)
                             getMediaForQuotedTweet(line)
                             bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>转推评论为：</b>\n' + line['text'], parse_mode="HTML", disable_web_page_preview=True)
                         if line['quoted_status']['truncated'] == True: # 如果转推推文是长推特
                             print u'转推推文是长推特'
-                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<b>' + line['quoted_status']['user']['name'] + u'</b>转推并引用了如下推文：\n' + line['quoted_status']['extended_tweet']['full_text'], parse_mode="HTML", disable_web_page_preview=True)
+                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<a href="https://twitter.com/{0}">{1}</a>转推并引用了如下推文：\n{2}'.format(['quoted_status']['user']['screen_name'], line['quoted_status']['user']['name'], line['quoted_status']['extended_tweet']['full_text']), parse_mode="HTML", disable_web_page_preview=True)
                             getMediaForQuotedLongTweet(line)
                             bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>转推评论为：</b>\n' + line['text'], parse_mode="HTML", disable_web_page_preview=True)
 
                     if line.has_key('retweeted_status') == True and line['is_quote_status'] == False: # 如果是纯转推，转发媒体
                         print u'检测到了 Aqours 成员的纯转推。'
                         if line['retweeted_status']['truncated'] == False: # 如果纯转推推文是短推特
-                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<b>' + line['retweeted_status']['user']['name'] + u'</b>转推了如下推文：\n' + line['retweeted_status']['text'], parse_mode="HTML", disable_web_page_preview=True)
+                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<a href="https://twitter.com/{0}">{1}</a>转推了如下推文：\n{2}'.format(line['retweeted_status']['user']['screen_name'], line['retweeted_status']['user']['name'], line['retweeted_status']['text']), parse_mode="HTML", disable_web_page_preview=True)
                             getMediaForRetweet(line)
                         if line['retweeted_status']['truncated'] == True: # 如果纯转推推文是长推特，则一定有媒体
-                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<b>' + line['retweeted_status']['user']['name'] + u'</b>转推了如下推文：\n' + line['retweeted_status']['extended_tweet']['full_text'], parse_mode="HTML", disable_web_page_preview=True)
+                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<a href="https://twitter.com/{0}">{1}</a>转推了如下推文：\n{2}'.format(line['retweeted_status']['user']['screen_name'], line['retweeted_status']['user']['name'], line['retweeted_status']['extended_tweet']['full_text']), parse_mode="HTML", disable_web_page_preview=True)
                             getMediaForRetweetLongTweet(line)
 
-                    if line['in_reply_to_status_id'] != None: # 如果是回复，不转发媒体
+                    if line['in_reply_to_status_id'] != None: # 如果是回复，暂时不转发媒体
                         print u'检测到有回复。' 
-                        bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>' + line['user']['name'] + u'</b>' + u'回复了' + u'<b>' + api.GetUser(user_id=line['in_reply_to_user_id_str']).name + u'</b>', parse_mode="HTML", disable_web_page_preview=True)
-                        bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>回复：</b>\n' + line['text'] + u'\n' + u'<b>回复的信息：</b>\n' + api.GetStatus(line['in_reply_to_status_id_str']).text, parse_mode="HTML", disable_web_page_preview=True)
+                        bot.send_message(chat_id=cfg.CHAT_ID, text=u'<a href="https://twitter.com/{0}">{1}</a>回复了<a href="https://twitter.com/{2}">{3}</a>'.format(line['user']['screen_name'], line['user']['name'], api.GetUser(user_id=line['in_reply_to_user_id_str']).screen_name, api.GetUser(user_id=line['in_reply_to_user_id_str']).name), parse_mode="HTML", disable_web_page_preview=True)
+                        bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>回复：</b>\n{0}\n<b>回复的信息：</b>\n{1}'.format(line['text'], api.GetStatus(line['in_reply_to_status_id_str']).text), parse_mode="HTML", disable_web_page_preview=True)
+                        getMediaForRepling()
 
                     if line['truncated'] == True: # 检测到长推文，长推文一定会有媒体，则转发。
                         print u'检测到长推文。'
