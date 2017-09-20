@@ -4,15 +4,15 @@ This Python script is for forwarding Aqours' member's Twitter statuses to a bot 
 
 Following are the Twitter accounts of Aqours members (Japanese):
 
-* [ÒÁ²¨ĞÓ˜ä](https://twitter.com/anju_inami)
-* [·êÌïÀæÏã×Ó](https://twitter.com/Rikako_Aida)
-* [ÕŒÔL¤Ê¤Ê¤«](https://twitter.com/suwananaka)
-* [Ğ¡ŒmÓĞ¼†](https://twitter.com/box_komiyaarisa)
-* [”ÅÌÙÖìÏÄ](https://twitter.com/Saito_Shuka)
-* [Ğ¡ÁÖÛÏã](https://twitter.com/Aikyan_)
-* [¸ß˜²¤«¤Ê¤³](https://twitter.com/Kanako_tktk)
-* [âÄ¾ÛÄÎ](https://twitter.com/aina_suzuki723)
-* [½µá¦Û](https://twitter.com/furihata_ai)
+* [ä¼Šæ³¢ææ¨¹](https://twitter.com/anju_inami)
+* [é€¢ç”°æ¢¨é¦™å­](https://twitter.com/Rikako_Aida)
+* [è«è¨ªãªãªã‹](https://twitter.com/suwananaka)
+* [å°å®®æœ‰ç´—](https://twitter.com/box_komiyaarisa)
+* [æ–‰è—¤æœ±å¤](https://twitter.com/Saito_Shuka)
+* [å°æ—æ„›é¦™](https://twitter.com/Aikyan_)
+* [é«˜æ§»ã‹ãªã“](https://twitter.com/Kanako_tktk)
+* [éˆ´æœ¨æ„›å¥ˆ](https://twitter.com/aina_suzuki723)
+* [é™å¹¡æ„›](https://twitter.com/furihata_ai)
 
 Features are:
 
@@ -29,8 +29,7 @@ You can deploy this script on a VPS, Google App Engine, or else. Before you star
 
 Make sure you have installed git, then run the following command. 
 
-`git clone https://github.com/MagaFun/AqoursTwitterStream.git
-cd AqoursTwitterStream
+`git clone https://github.com/MagaFun/AqoursTwitterStream.git && cd AqoursTwitterStream
 `
 
 Next, paste your token in the file: `authconfig.py`, then put your desired chat ID into `CHAT_ID` variable. 
@@ -40,7 +39,7 @@ You are all good to go now, run the command:
 `python	AqoursTwitterStream.py
 `
 
-If you received a message `³ÌĞòÒÑÆô¶¯¡£`£¬the script has been started. 
+If you received a message `ç¨‹åºå·²å¯åŠ¨ã€‚`ï¼Œthe script has been started. 
 
 Please be informed that the script will create a file in the folder named `output.log` for error logging purpose.
 
