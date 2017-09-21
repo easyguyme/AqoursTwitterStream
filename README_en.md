@@ -4,15 +4,15 @@ This Python script is for forwarding Aqours' member's Twitter statuses to a bot 
 
 Following are the Twitter accounts of Aqours members (Japanese):
 
-* [�����Ә�](https://twitter.com/anju_inami)
-* [����������](https://twitter.com/Rikako_Aida)
-* [Ռ�L�ʤʤ�](https://twitter.com/suwananaka)
-* [С�m�м�](https://twitter.com/box_komiyaarisa)
-* [��������](https://twitter.com/Saito_Shuka)
-* [С�֐���](https://twitter.com/Aikyan_)
-* [�ߘ����ʤ�](https://twitter.com/Kanako_tktk)
-* [�ľ����](https://twitter.com/aina_suzuki723)
-* [��ᦐ�](https://twitter.com/furihata_ai)
+* [Anju Inami](https://twitter.com/anju_inami)
+* [Rikako Aida](https://twitter.com/Rikako_Aida)
+* [Nanaka Suwa](https://twitter.com/suwananaka)
+* [Arisa Komiya](https://twitter.com/box_komiyaarisa)
+* [Shuka Saito](https://twitter.com/Saito_Shuka)
+* [Aika Kobayashi](https://twitter.com/Aikyan_)
+* [Kanako Takatsuki](https://twitter.com/Kanako_tktk)
+* [Aina Suzuki](https://twitter.com/aina_suzuki723)
+* [Ai Furihata](https://twitter.com/furihata_ai)
 
 Features are:
 
@@ -40,7 +40,7 @@ You are all good to go now, run the command:
 `python	AqoursTwitterStream.py
 `
 
-If you received a message `���������`��the script has been started. 
+If you received a message `程序已启动。`the script has been started. 
 
 Please be informed that the script will create a file in the folder named `output.log` for error logging purpose.
 

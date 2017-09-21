@@ -5,7 +5,6 @@ import telegram
 import json
 import operator
 import authconfig as cfg
-from retrying import retry
 import sys # 8-11 行是保证系统使用 UTF-8 编码做输出检查，不需要的话可以注释掉。
 
 reload(sys)
@@ -18,7 +17,7 @@ api = twitter.Api(consumer_key=cfg.TWITTER_TOKEN['consumer_key'],
                   access_token_key=cfg.TWITTER_TOKEN['access_token_key'],
                   access_token_secret=cfg.TWITTER_TOKEN['access_token_secret'])
 
-bot.send_message(chat_id=cfg.CHAT_ID, text='''程序已启动。''')
+bot.send_message(chat_id=cfg.CHAT_ID, text='''程序已重启。''')
 
 AQOURS = ['1393924040', '3692123006', '2598273120', '746579242431877121', '3801397033', '260986258', '4065828913', '3177547086', '3177540343', '391360956', '347849994']
 mp4 = [] # 定义一个列表来筛选最高质量的视频
@@ -43,7 +42,7 @@ def getMediaForPost(line):
     else: # 有媒体
         pass
 
-def getMediaForRepling():
+def getMediaForRepling(line):
     if line['entities'].has_key('media') == True:
         if line['entities']['media'][0]['type'] == 'photo': # 媒体为图片
             print u'回复媒体是图片'
