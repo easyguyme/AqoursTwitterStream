@@ -4,15 +4,15 @@ This Python script is for forwarding Aqours' member's Twitter statuses to a bot 
 
 Following are the Twitter accounts of Aqours members (Japanese):
 
-* [ÒÁ²¨ĞÓ˜ä](https://twitter.com/anju_inami)
-* [·êÌïÀæÏã×Ó](https://twitter.com/Rikako_Aida)
-* [ÕŒÔL¤Ê¤Ê¤«](https://twitter.com/suwananaka)
-* [Ğ¡ŒmÓĞ¼†](https://twitter.com/box_komiyaarisa)
-* [”ÅÌÙÖìÏÄ](https://twitter.com/Saito_Shuka)
-* [Ğ¡ÁÖÛÏã](https://twitter.com/Aikyan_)
-* [¸ß˜²¤«¤Ê¤³](https://twitter.com/Kanako_tktk)
-* [âÄ¾ÛÄÎ](https://twitter.com/aina_suzuki723)
-* [½µá¦Û](https://twitter.com/furihata_ai)
+* [ï¿½ï¿½ï¿½ï¿½ï¿½Ó˜ï¿½](https://twitter.com/anju_inami)
+* [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½](https://twitter.com/Rikako_Aida)
+* [ÕŒï¿½Lï¿½Ê¤Ê¤ï¿½](https://twitter.com/suwananaka)
+* [Ğ¡ï¿½mï¿½Ğ¼ï¿½](https://twitter.com/box_komiyaarisa)
+* [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½](https://twitter.com/Saito_Shuka)
+* [Ğ¡ï¿½Öï¿½ï¿½ï¿½](https://twitter.com/Aikyan_)
+* [ï¿½ß˜ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½](https://twitter.com/Kanako_tktk)
+* [ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½](https://twitter.com/aina_suzuki723)
+* [ï¿½ï¿½á¦ï¿½](https://twitter.com/furihata_ai)
 
 Features are:
 
@@ -40,7 +40,7 @@ You are all good to go now, run the command:
 `python	AqoursTwitterStream.py
 `
 
-If you received a message `³ÌĞòÒÑÆô¶¯¡£`£¬the script has been started. 
+If you received a message `ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½`ï¿½ï¿½the script has been started. 
 
 Please be informed that the script will create a file in the folder named `output.log` for error logging purpose.
 

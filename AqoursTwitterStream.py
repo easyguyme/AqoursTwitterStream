@@ -169,12 +169,12 @@ def main():
                         print u'检测到了 Aqours 成员的转推评论。'
                         if line['quoted_status']['truncated'] == False: # 如果转推推文是短推特
                             print u'转推推文是短推文'
-                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<a href="https://twitter.com/{0}">{1}</a>转推并引用了如下推文：\n{2}'.format(['quoted_status']['user']['screen_name'], line['quoted_status']['user']['name'], line['quoted_status']['text']), parse_mode="HTML", disable_web_page_preview=True)
+                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<a href="https://twitter.com/{0}">{1}</a>转推并引用了如下推文：\n{2}'.format(line['quoted_status']['user']['screen_name'], line['quoted_status']['user']['name'], line['quoted_status']['text']), parse_mode="HTML", disable_web_page_preview=True)
                             getMediaForQuotedTweet(line)
                             bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>转推评论为：</b>\n' + line['text'], parse_mode="HTML", disable_web_page_preview=True)
                         if line['quoted_status']['truncated'] == True: # 如果转推推文是长推特
                             print u'转推推文是长推特'
-                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<a href="https://twitter.com/{0}">{1}</a>转推并引用了如下推文：\n{2}'.format(['quoted_status']['user']['screen_name'], line['quoted_status']['user']['name'], line['quoted_status']['extended_tweet']['full_text']), parse_mode="HTML", disable_web_page_preview=True)
+                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<a href="https://twitter.com/{0}">{1}</a>转推并引用了如下推文：\n{2}'.format(line['quoted_status']['user']['screen_name'], line['quoted_status']['user']['name'], line['quoted_status']['extended_tweet']['full_text']), parse_mode="HTML", disable_web_page_preview=True)
                             getMediaForQuotedLongTweet(line)
                             bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>转推评论为：</b>\n' + line['text'], parse_mode="HTML", disable_web_page_preview=True)
 
