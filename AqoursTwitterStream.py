@@ -190,7 +190,7 @@ def main():
                         print u'检测到有回复。' 
                         bot.send_message(chat_id=cfg.CHAT_ID, text=u'<a href="https://twitter.com/{0}">{1}</a>回复了<a href="https://twitter.com/{2}">{3}</a>'.format(line['user']['screen_name'], line['user']['name'], api.GetUser(user_id=line['in_reply_to_user_id_str']).screen_name, api.GetUser(user_id=line['in_reply_to_user_id_str']).name), parse_mode="HTML", disable_web_page_preview=True)
                         bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>回复：</b>\n{0}\n<b>回复的信息：</b>\n{1}'.format(line['text'], api.GetStatus(line['in_reply_to_status_id_str']).text), parse_mode="HTML", disable_web_page_preview=True)
-                        getMediaForRepling()
+                        getMediaForRepling(line)
 
                     if line['truncated'] == True: # 检测到长推文，长推文一定会有媒体，则转发。
                         print u'检测到长推文。'
