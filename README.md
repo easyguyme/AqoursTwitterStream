@@ -34,9 +34,13 @@
 
 之后，若您想要让您刚才创建的机器人给您发送私人信息提醒 Aqours 成员推特更新的话，您需要编辑 `CHAT_ID`，您的 `CHAT_ID` 可以通过另一个机器人 [get_id_bot](https://telegram.me/get_id_bot) 来获取。
 
-之后直接运行如下命令：
+然后，直接运行如下命令：
 
-`python AqoursTwitterStream.py`
+```
+pip install python-twitter
+pip install python-telegram-bot
+python AqoursTwitterStream.py
+```
 
 如果机器人给您发送信息`程序已启动。`，说明脚本启动成功。
 

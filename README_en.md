@@ -29,18 +29,20 @@ You can deploy this script on a VPS, Google App Engine, or else. Before you star
 
 Make sure you have installed git, then run the following command. 
 
-`git clone https://github.com/MagaFun/AqoursTwitterStream.git
-cd AqoursTwitterStream
+`git clone https://github.com/MagaFun/AqoursTwitterStream.git && cd AqoursTwitterStream/
 `
 
 Next, paste your token in the file: `authconfig.py`, then put your desired chat ID into `CHAT_ID` variable. 
 
 You are all good to go now, run the command:
 
-`python	AqoursTwitterStream.py
-`
+```
+pip install python-twitter
+pip install python-telegram-bot
+python AqoursTwitterStream.py
+```
 
-If you received a message `程序已启动。`the script has been started. 
+If you received a message `程序已启动。`, the script has been started. 
 
 Please be informed that the script will create a file in the folder named `output.log` for error logging purpose.
 
