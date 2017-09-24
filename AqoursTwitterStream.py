@@ -23,14 +23,14 @@ bot.send_message(chat_id=cfg.CHAT_ID, text='''程序已重启。''')
 AQOURS = ['1393924040', '3692123006', '2598273120', '746579242431877121', '3801397033', '260986258', '4065828913', '3177547086', '3177540343', '391360956', '347849994']
 mp4 = [] # 定义一个列表来筛选最高质量的视频
 
-def getMediaForPost(line):
+def getMediaForPost(line, r):
     if line['entities'].has_key('media') == True:
         if line['entities']['media'][0]['type'] == 'photo': # 媒体为图片
             print u'媒体是图片'
             for i in range(0, len(line['extended_entities']['media'])):
                 print line['extended_entities']['media'][i]['media_url_https']
-                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['extended_entities']['media'][i]['media_url_https'], caption='推文图片')
-        elif line['extended_entities']['media'][0]['type'] == 'video': # 媒体为视频
+                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['extended_entities']['media'][i]['media_url_https'], caption='推文图片', reply_to_message_id=r['message_id'])
+        if line['extended_entities']['media'][0]['type'] == 'video': # 媒体为视频
             print u'媒体是视频'
             for m in range(0, len(line['extended_entities']['media'][0]['video_info']['variants'])):
                 if line['extended_entities']['media'][0]['video_info']['variants'][m]['content_type'] == 'video/mp4':
@@ -43,24 +43,24 @@ def getMediaForPost(line):
     else:
         pass
 
-def getMediaForRepling(line):
+def getMediaForRepling(line, r):
     if line['entities'].has_key('media') == True:
         if line['entities']['media'][0]['type'] == 'photo': # 媒体为图片
             print u'回复媒体是图片'
             for i in range(0, len(line['extended_entities']['media'])):
                 print line['extended_entities']['media'][i]['media_url_https']
-                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['extended_entities']['media'][i]['media_url_https'], caption='回复附带图片')
+                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['extended_entities']['media'][i]['media_url_https'], caption='回复附带图片', reply_to_message_id=r['message_id'])
         else:
             pass
     else:
         pass
 
-def getMediaForLongTweet(line):
+def getMediaForLongTweet(line, r):
     if line['extended_tweet']['extended_entities']['media'][0]['type'] == 'photo': # 转发图片
         print u'媒体是图片'
         for i in range(0, len(line['extended_tweet']['extended_entities']['media'])): 
             print line['extended_tweet']['extended_entities']['media'][i]['media_url_https']
-            bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['extended_tweet']['extended_entities']['media'][i]['media_url_https'], caption='推文图片')
+            bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['extended_tweet']['extended_entities']['media'][i]['media_url_https'], caption='推文图片', reply_to_message_id=r['message_id'])
     if line['extended_tweet']['extended_entities']['media'][0]['type'] == 'video': # 转发视频
         print u'媒体是视频'
         for m in range(0, len(line['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'])):
@@ -69,10 +69,10 @@ def getMediaForLongTweet(line):
                 else:
                     pass
         print max(mp4, key=operator.itemgetter('bitrate'))['url']
-        bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='推文视频')
+        bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='推文视频', reply_to_message_id=r['message_id'])
         del mp4[:]
 
-def getMediaForRetweet(line):
+def getMediaForRetweet(line, r):
     if line['retweeted_status']['entities'].has_key('media') == True: # 如果转推的推文有媒体
         if line['retweeted_status']['extended_entities']['media'][0]['type'] == 'video': # 媒体是视频
             print u'媒体是视频'
@@ -82,22 +82,22 @@ def getMediaForRetweet(line):
                 else:
                     pass
             print max(mp4, key=operator.itemgetter('bitrate'))['url']
-            bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='原推文视频')
+            bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='原推文视频', reply_to_message_id=r['message_id'])
             del mp4[:]
         elif line['retweeted_status']['entities']['media'][0]['type'] == 'photo': # 媒体是图片
             print u'媒体是图片'
             for i in range(0, len(line['retweeted_status']['extended_entities']['media'])):
                 print line['retweeted_status']['extended_entities']['media'][i]['media_url_https']
-                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['retweeted_status']['extended_entities']['media'][i]['media_url_https'], caption='原推文图片')
+                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['retweeted_status']['extended_entities']['media'][i]['media_url_https'], caption='原推文图片', reply_to_message_id=r['message_id'])
     else: # 如果没有媒体
         pass
 
-def getMediaForRetweetLongTweet(line):
+def getMediaForRetweetLongTweet(line, r):
     if line['retweeted_status']['extended_tweet']['extended_entities']['media'][0]['type'] == 'photo': # 转发图片
         print u'媒体是图片'
         for i in range(0, len(line['retweeted_status']['extended_tweet']['extended_entities']['media'])): 
             print line['retweeted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https']
-            bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['retweeted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https'], caption='原推文媒体')
+            bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['retweeted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https'], caption='原推文图片', reply_to_message_id=r['message_id'])
     if line['retweeted_status']['extended_tweet']['extended_entities']['media'][0]['type'] == 'video': # 转发视频
         print u'媒体是视频'
         for m in range(0, len(line['retweeted_status']['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'])):
@@ -106,17 +106,17 @@ def getMediaForRetweetLongTweet(line):
             else:
                 pass
         print max(mp4, key=operator.itemgetter('bitrate'))['url']
-        bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='原推文媒体')
+        bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='原推文视频', reply_to_message_id=r['message_id'])
         del mp4[:]
 
-def getMediaForQuotedTweet(line):
+def getMediaForQuotedTweet(line, r):
     if line['quoted_status']['entities'].has_key('media') == True: # 检查原推文是否有媒体，短推特不一定有媒体
         print u'检测到媒体'
         if line['quoted_status']['extended_entities']['media'][0]['type'] == 'photo': # 转发图片
             print u'媒体是图片'
             for i in range(0, len(line['quoted_status']['extended_entities']['media'])):
                 print line['quoted_status']['extended_entities']['media'][i]['media_url_https']
-                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['quoted_status']['extended_entities']['media'][i]['media_url_https'], caption='原推特图片')
+                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['quoted_status']['extended_entities']['media'][i]['media_url_https'], caption='原推文图片', reply_to_message_id=r['message_id'])
         if line['quoted_status']['extended_entities']['media'][0]['type'] == 'video': # 转发视频
             print u'媒体是视频'
             for m in range(0, len(line['quoted_status']['extended_entities']['media'][0]['video_info']['variants'])):
@@ -125,17 +125,17 @@ def getMediaForQuotedTweet(line):
                 else:
                     pass
             print max(mp4, key=operator.itemgetter('bitrate'))['url']
-            bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='推文视频')
+            bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='原推文视频', reply_to_message_id=r['message_id'])
             del mp4[:]
     else:
         pass
 
-def getMediaForQuotedLongTweet(line):
+def getMediaForQuotedLongTweet(line, r):
     if line['quoted_status']['extended_tweet']['extended_entities']['media'][0]['type'] == 'photo': # 转发图片
         print u'媒体是图片'
         for i in range(0, len(line['quoted_status']['extended_tweet']['extended_entities']['media'])): 
             print line['quoted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https']
-            bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['quoted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https'], caption='推文图片')
+            bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['quoted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https'], caption='推文图片', reply_to_message_id=r['message_id'])
     if line['quoted_status']['extended_tweet']['extended_entities']['media'][0]['type'] == 'video': # 转发视频
         print u'媒体是视频'
         for m in range(0, len(line['quoted_status']['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'])):
@@ -144,7 +144,7 @@ def getMediaForQuotedLongTweet(line):
             else:
                 pass
         print max(mp4, key=operator.itemgetter('bitrate'))['url']
-        bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='推文视频')
+        bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='推文视频', reply_to_message_id=r['message_id'])
         del mp4[:]
 
 def main():
@@ -174,39 +174,39 @@ def main():
                         print u'检测到了 Aqours 成员的转推评论。'
                         if line['quoted_status']['truncated'] == False: # 如果转推推文是短推特
                             print u'转推推文是短推文'
-                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<a href="https://twitter.com/{0}">{1}</a>转推并引用了如下推文：\n{2}'.format(line['quoted_status']['user']['screen_name'], line['quoted_status']['user']['name'], line['quoted_status']['text']), parse_mode="HTML", disable_web_page_preview=True)
-                            getMediaForQuotedTweet(line)
+                            r = bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<a href="https://twitter.com/{0}">{1}</a>转推并引用了如下推文：\n{2}'.format(line['quoted_status']['user']['screen_name'], line['quoted_status']['user']['name'], line['quoted_status']['text']), parse_mode="HTML", disable_web_page_preview=True)
+                            getMediaForQuotedTweet(line, r)
                             bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>转推评论为：</b>\n' + line['text'], parse_mode="HTML", disable_web_page_preview=True, reply_markup=reply_markup)
                         if line['quoted_status']['truncated'] == True: # 如果转推推文是长推特
                             print u'转推推文是长推特'
-                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<a href="https://twitter.com/{0}">{1}</a>转推并引用了如下推文：\n{2}'.format(line['quoted_status']['user']['screen_name'], line['quoted_status']['user']['name'], line['quoted_status']['extended_tweet']['full_text']), parse_mode="HTML", disable_web_page_preview=True)
-                            getMediaForQuotedLongTweet(line)
+                            r = bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<a href="https://twitter.com/{0}">{1}</a>转推并引用了如下推文：\n{2}'.format(line['quoted_status']['user']['screen_name'], line['quoted_status']['user']['name'], line['quoted_status']['extended_tweet']['full_text']), parse_mode="HTML", disable_web_page_preview=True)
+                            getMediaForQuotedLongTweet(line, r)
                             bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>转推评论为：</b>\n' + line['text'], parse_mode="HTML", disable_web_page_preview=True, reply_markup=reply_markup)
 
                     if line.has_key('retweeted_status') == True and line['is_quote_status'] == False: # 如果是纯转推，转发媒体
                         print u'检测到了 Aqours 成员的纯转推。'
                         if line['retweeted_status']['truncated'] == False: # 如果纯转推推文是短推特
-                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<a href="https://twitter.com/{0}">{1}</a>转推了如下推文：\n{2}'.format(line['retweeted_status']['user']['screen_name'], line['retweeted_status']['user']['name'], line['retweeted_status']['text']), parse_mode="HTML", disable_web_page_preview=True, reply_markup=reply_markup)
-                            getMediaForRetweet(line)
+                            r = bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<a href="https://twitter.com/{0}">{1}</a>转推了如下推文：\n{2}'.format(line['retweeted_status']['user']['screen_name'], line['retweeted_status']['user']['name'], line['retweeted_status']['text']), parse_mode="HTML", disable_web_page_preview=True, reply_markup=reply_markup)
+                            getMediaForRetweet(line, r)
                         if line['retweeted_status']['truncated'] == True: # 如果纯转推推文是长推特，则一定有媒体
-                            bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<a href="https://twitter.com/{0}">{1}</a>转推了如下推文：\n{2}'.format(line['retweeted_status']['user']['screen_name'], line['retweeted_status']['user']['name'], line['retweeted_status']['extended_tweet']['full_text']), parse_mode="HTML", disable_web_page_preview=True, reply_markup=reply_markup)
-                            getMediaForRetweetLongTweet(line)
+                            r = bot.send_message(chat_id=cfg.CHAT_ID, text=u'从<a href="https://twitter.com/{0}">{1}</a>转推了如下推文：\n{2}'.format(line['retweeted_status']['user']['screen_name'], line['retweeted_status']['user']['name'], line['retweeted_status']['extended_tweet']['full_text']), parse_mode="HTML", disable_web_page_preview=True, reply_markup=reply_markup)
+                            getMediaForRetweetLongTweet(line, r)
 
                     if line['in_reply_to_status_id'] != None: # 如果是回复，暂时不转发媒体
                         print u'检测到有回复。' 
-                        bot.send_message(chat_id=cfg.CHAT_ID, text=u'<a href="https://twitter.com/{0}">{1}</a>回复了<a href="https://twitter.com/{2}">{3}</a>'.format(line['user']['screen_name'], line['user']['name'], api.GetUser(user_id=line['in_reply_to_user_id_str']).screen_name, api.GetUser(user_id=line['in_reply_to_user_id_str']).name), parse_mode="HTML", disable_web_page_preview=True)
+                        r = bot.send_message(chat_id=cfg.CHAT_ID, text=u'<a href="https://twitter.com/{0}">{1}</a>回复了<a href="https://twitter.com/{2}">{3}</a>'.format(line['user']['screen_name'], line['user']['name'], api.GetUser(user_id=line['in_reply_to_user_id_str']).screen_name, api.GetUser(user_id=line['in_reply_to_user_id_str']).name), parse_mode="HTML", disable_web_page_preview=True)
                         bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>回复：</b>\n{0}\n<b>回复的信息：</b>\n{1}'.format(line['text'], api.GetStatus(line['in_reply_to_status_id_str']).text), parse_mode="HTML", disable_web_page_preview=True, reply_markup=reply_markup)
-                        getMediaForRepling(line)
+                        getMediaForRepling(line, r)
 
                     if line['truncated'] == True: # 检测到长推文，长推文一定会有媒体，则转发。
                         print u'检测到长推文。'
-                        bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>以下为推特内容</b>\n' + line['extended_tweet']['full_text'], parse_mode="HTML", disable_web_page_preview=True, reply_markup=reply_markup)
-                        getMediaForLongTweet(line)
+                        r = bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>以下为推特内容</b>\n' + line['extended_tweet']['full_text'], parse_mode="HTML", disable_web_page_preview=True, reply_markup=reply_markup)
+                        getMediaForLongTweet(line, r)
 
                     elif line['in_reply_to_status_id'] == None and line.has_key('retweeted_status') == False and line['is_quote_status'] == False and line['truncated'] == False: # 如果不满足以上任何条件，则为原创推特，需要转发媒体。
                         print u'检测到原创更新。'
-                        bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>以下为推特内容</b>\n' + line['text'], parse_mode="HTML", disable_web_page_preview=True, reply_markup=reply_markup)
-                        getMediaForPost(line) 
+                        r = bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>以下为推特内容</b>\n' + line['text'], parse_mode="HTML", disable_web_page_preview=True, reply_markup=reply_markup)
+                        getMediaForPost(line, r) 
 while True:
     try:
         main()
