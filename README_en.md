@@ -1,6 +1,6 @@
-# Aqours Twitter Stream
+# AqoursTwitterStream
 
-This Python script is for forwarding Aqours' member's Twitter statuses to a bot in Telegram - a messaging application in real time. Of course it can also forward different people's tweets, I call it Aqours Twitter Stream because the initiative was from them.
+This Python script is for forwarding Aqours' member's Twitter statuses in real time to a bot in Telegram - a messaging application. Of course it can also forward different people's tweets, I call it AqoursTwitterStream because the initiative was from them.
 
 Following are the Twitter accounts of Aqours members (Japanese):
 
@@ -29,8 +29,10 @@ You can deploy this script on a VPS, Google App Engine, or else. Before you star
 
 Make sure you have installed git, then run the following command. 
 
-`git clone https://github.com/MagaFun/AqoursTwitterStream.git && cd AqoursTwitterStream/
-`
+```
+git clone https://github.com/MagaFun/AqoursTwitterStream.git
+cd AqoursTwitterStream/
+```
 
 Next, paste your token in the file: `authconfig.py`, then put your desired chat ID into `CHAT_ID` variable. 
 

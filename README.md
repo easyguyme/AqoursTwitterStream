@@ -1,6 +1,6 @@
 # Aqours 推特实时转发 Telegram
 
-本 Python 脚本可以实现将 Aqours 成员推特实时转发到 Telegram 机器人的功能。Aqours 成员推特分别为（日语）：
+本 Python 脚本可以实现将 Aqours 成员推特实时转发到 Telegram 机器人的功能。本脚本同样也可以转发其他人的推特。Aqours 成员推特分别为（日语）：
 
 * [伊波杏樹](https://twitter.com/anju_inami)
 * [逢田梨香子](https://twitter.com/Rikako_Aida)
@@ -27,8 +27,10 @@
 
 请先确保您的 VPS 安装了 Git 以及 Python 2.6，然后运行以下命令：
 
-`git clone https://github.com/MagaFun/AqoursTwitterStream.git
-`
+```
+cd AqoursTwitterStream/
+git clone https://github.com/MagaFun/AqoursTwitterStream.git
+```
 
 然后进入目录，在 `authconfig.py` 内粘贴自己的 Token，粘贴完毕后保存。
 
