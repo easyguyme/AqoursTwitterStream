@@ -56,21 +56,24 @@ def getMediaForRepling(line, r):
         pass
 
 def getMediaForLongTweet(line, r):
-    if line['extended_tweet']['extended_entities']['media'][0]['type'] == 'photo': # photo
-        print u'媒体是图片'
-        for i in range(0, len(line['extended_tweet']['extended_entities']['media'])): 
-            print line['extended_tweet']['extended_entities']['media'][i]['media_url_https']
-            bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['extended_tweet']['extended_entities']['media'][i]['media_url_https'], caption='推文图片', reply_to_message_id=r['message_id'])
-    if line['extended_tweet']['extended_entities']['media'][0]['type'] == 'video': # video
-        print u'媒体是视频'
-        for m in range(0, len(line['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'])):
+    if line['extended_tweet'].has_key('extended_entities'):
+        if line['extended_tweet']['extended_entities']['media'][0]['type'] == 'photo': # photo
+            print u'媒体是图片'
+            for i in range(0, len(line['extended_tweet']['extended_entities']['media'])): 
+                print line['extended_tweet']['extended_entities']['media'][i]['media_url_https']
+                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['extended_tweet']['extended_entities']['media'][i]['media_url_https'], caption='推文图片', reply_to_message_id=r['message_id'])
+        if line['extended_tweet']['extended_entities']['media'][0]['type'] == 'video': # video
+            print u'媒体是视频'
+            for m in range(0, len(line['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'])):
                 if line['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'][m]['content_type'] == 'video/mp4':
                     mp4.append(line['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'][m])
                 else:
                     pass
-        print max(mp4, key=operator.itemgetter('bitrate'))['url']
-        bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='推文视频', reply_to_message_id=r['message_id'])
-        del mp4[:]
+            print max(mp4, key=operator.itemgetter('bitrate'))['url']
+            bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='推文视频', reply_to_message_id=r['message_id'])
+            del mp4[:]
+    else:
+        pass
 
 def getMediaForRetweet(line, r):
     if line['retweeted_status']['entities'].has_key('media') == True: 
@@ -93,21 +96,24 @@ def getMediaForRetweet(line, r):
         pass
 
 def getMediaForRetweetLongTweet(line, r):
-    if line['retweeted_status']['extended_tweet']['extended_entities']['media'][0]['type'] == 'photo':
-        print u'媒体是图片'
-        for i in range(0, len(line['retweeted_status']['extended_tweet']['extended_entities']['media'])): 
-            print line['retweeted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https']
-            bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['retweeted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https'], caption='原推文图片', reply_to_message_id=r['message_id'])
-    if line['retweeted_status']['extended_tweet']['extended_entities']['media'][0]['type'] == 'video':
-        print u'媒体是视频'
-        for m in range(0, len(line['retweeted_status']['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'])):
-            if line['retweeted_status']['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'][m]['content_type'] == 'video/mp4':
-                mp4.append(line['retweeted_status']['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'][m])
-            else:
-                pass
-        print max(mp4, key=operator.itemgetter('bitrate'))['url']
-        bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='原推文视频', reply_to_message_id=r['message_id'])
-        del mp4[:]
+    if line['retweeted_status']['extended_tweet'].has_key('extended_entities'): # Extended Tweet does not contain media in all situations, there could be a link.
+        if line['retweeted_status']['extended_tweet']['extended_entities']['media'][0]['type'] == 'photo':
+            print u'媒体是图片'
+            for i in range(0, len(line['retweeted_status']['extended_tweet']['extended_entities']['media'])): 
+                print line['retweeted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https']
+                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['retweeted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https'], caption='原推文图片', reply_to_message_id=r['message_id'])
+        if line['retweeted_status']['extended_tweet']['extended_entities']['media'][0]['type'] == 'video':
+            print u'媒体是视频'
+            for m in range(0, len(line['retweeted_status']['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'])):
+                if line['retweeted_status']['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'][m]['content_type'] == 'video/mp4':
+                    mp4.append(line['retweeted_status']['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'][m])
+                else:
+                    pass
+            print max(mp4, key=operator.itemgetter('bitrate'))['url']
+            bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='原推文视频', reply_to_message_id=r['message_id'])
+            del mp4[:]
+    else:
+        pass
 
 def getMediaForQuotedTweet(line, r):
     if line['quoted_status']['entities'].has_key('media') == True:
@@ -131,21 +137,24 @@ def getMediaForQuotedTweet(line, r):
         pass
 
 def getMediaForQuotedLongTweet(line, r):
-    if line['quoted_status']['extended_tweet']['extended_entities']['media'][0]['type'] == 'photo': 
-        print u'媒体是图片'
-        for i in range(0, len(line['quoted_status']['extended_tweet']['extended_entities']['media'])): 
-            print line['quoted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https']
-            bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['quoted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https'], caption='推文图片', reply_to_message_id=r['message_id'])
-    if line['quoted_status']['extended_tweet']['extended_entities']['media'][0]['type'] == 'video': 
-        print u'媒体是视频'
-        for m in range(0, len(line['quoted_status']['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'])):
-            if line['quoted_status']['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'][m]['content_type'] == 'video/mp4':
-                mp4.append(line['quoted_status']['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'][m])
-            else:
-                pass
-        print max(mp4, key=operator.itemgetter('bitrate'))['url']
-        bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='推文视频', reply_to_message_id=r['message_id'])
-        del mp4[:]
+    if line['quoted_status']['extended_tweet'].has_key('extended_entities'):
+        if line['quoted_status']['extended_tweet']['extended_entities']['media'][0]['type'] == 'photo': 
+            print u'媒体是图片'
+            for i in range(0, len(line['quoted_status']['extended_tweet']['extended_entities']['media'])): 
+                print line['quoted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https']
+                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['quoted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https'], caption='推文图片', reply_to_message_id=r['message_id'])
+        if line['quoted_status']['extended_tweet']['extended_entities']['media'][0]['type'] == 'video': 
+            print u'媒体是视频'
+            for m in range(0, len(line['quoted_status']['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'])):
+                if line['quoted_status']['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'][m]['content_type'] == 'video/mp4':
+                    mp4.append(line['quoted_status']['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'][m])
+                else:
+                    pass
+            print max(mp4, key=operator.itemgetter('bitrate'))['url']
+            bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='推文视频', reply_to_message_id=r['message_id'])
+            del mp4[:]
+    else:
+        pass
 
 def main():
     with open('output.log', 'a') as f:
@@ -157,7 +166,7 @@ def main():
                 bot.send_message(chat_id=cfg.CHAT_ID, text=u'<b>检测到删推操作</b>', parse_mode="HTML")
                 bot.send_message(chat_id=cfg.CHAT_ID, text=u'被删除的推特 ID 为：' + '<b>' + line['delete']['status']['id_str'] + '</b>', parse_mode="HTML")
                      
-            if line.has_key('delete') == False: # Id not deleting a tweet, an update can be confirmed 
+            if line.has_key('delete') == False: # If not deleting a tweet, an update can be confirmed 
                 if line['user']['id_str'] in AQOURS:
                     print u'检测到了 Aqours 成员的更新。'
                     f.write(json.dumps(line)) # log output
