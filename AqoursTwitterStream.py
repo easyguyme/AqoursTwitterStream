@@ -29,7 +29,7 @@ def getMediaForPost(line, r):
             print u'媒体是图片'
             for i in range(0, len(line['extended_entities']['media'])):
                 print line['extended_entities']['media'][i]['media_url_https']
-                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['extended_entities']['media'][i]['media_url_https'], caption='推文图片', reply_to_message_id=r['message_id'])
+                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['extended_entities']['media'][i]['media_url_https'] + '?format=jpg&name=orig', caption='推文图片', reply_to_message_id=r['message_id'])
         if line['extended_entities']['media'][0]['type'] == 'video': # Media type: video
             print u'媒体是视频'
             for m in range(0, len(line['extended_entities']['media'][0]['video_info']['variants'])):
@@ -49,7 +49,7 @@ def getMediaForRepling(line, r):
             print u'回复媒体是图片'
             for i in range(0, len(line['extended_entities']['media'])):
                 print line['extended_entities']['media'][i]['media_url_https']
-                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['extended_entities']['media'][i]['media_url_https'], caption='回复附带图片', reply_to_message_id=r['message_id'])
+                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['extended_entities']['media'][i]['media_url_https'] + '?format=jpg&name=orig', caption='回复附带图片', reply_to_message_id=r['message_id'])
         else:
             pass
     else:
@@ -61,7 +61,7 @@ def getMediaForLongTweet(line, r):
             print u'媒体是图片'
             for i in range(0, len(line['extended_tweet']['extended_entities']['media'])): 
                 print line['extended_tweet']['extended_entities']['media'][i]['media_url_https']
-                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['extended_tweet']['extended_entities']['media'][i]['media_url_https'], caption='推文图片', reply_to_message_id=r['message_id'])
+                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['extended_tweet']['extended_entities']['media'][i]['media_url_https'] + '?format=jpg&name=orig', caption='推文图片', reply_to_message_id=r['message_id'])
         if line['extended_tweet']['extended_entities']['media'][0]['type'] == 'video': # video
             print u'媒体是视频'
             for m in range(0, len(line['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'])):
@@ -91,7 +91,7 @@ def getMediaForRetweet(line, r):
             print u'媒体是图片'
             for i in range(0, len(line['retweeted_status']['extended_entities']['media'])):
                 print line['retweeted_status']['extended_entities']['media'][i]['media_url_https']
-                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['retweeted_status']['extended_entities']['media'][i]['media_url_https'], caption='原推文图片', reply_to_message_id=r['message_id'])
+                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['retweeted_status']['extended_entities']['media'][i]['media_url_https'] + '?format=jpg&name=orig', caption='原推文图片', reply_to_message_id=r['message_id'])
     else:
         pass
 
@@ -101,7 +101,7 @@ def getMediaForRetweetLongTweet(line, r):
             print u'媒体是图片'
             for i in range(0, len(line['retweeted_status']['extended_tweet']['extended_entities']['media'])): 
                 print line['retweeted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https']
-                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['retweeted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https'], caption='原推文图片', reply_to_message_id=r['message_id'])
+                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['retweeted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https'] + '?format=jpg&name=orig', caption='原推文图片', reply_to_message_id=r['message_id'])
         if line['retweeted_status']['extended_tweet']['extended_entities']['media'][0]['type'] == 'video':
             print u'媒体是视频'
             for m in range(0, len(line['retweeted_status']['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'])):
@@ -122,7 +122,7 @@ def getMediaForQuotedTweet(line, r):
             print u'媒体是图片'
             for i in range(0, len(line['quoted_status']['extended_entities']['media'])):
                 print line['quoted_status']['extended_entities']['media'][i]['media_url_https']
-                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['quoted_status']['extended_entities']['media'][i]['media_url_https'], caption='原推文图片', reply_to_message_id=r['message_id'])
+                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['quoted_status']['extended_entities']['media'][i]['media_url_https'] + '?format=jpg&name=orig', caption='原推文图片', reply_to_message_id=r['message_id'])
         if line['quoted_status']['extended_entities']['media'][0]['type'] == 'video': # 转发视频
             print u'媒体是视频'
             for m in range(0, len(line['quoted_status']['extended_entities']['media'][0]['video_info']['variants'])):
@@ -142,7 +142,7 @@ def getMediaForQuotedLongTweet(line, r):
             print u'媒体是图片'
             for i in range(0, len(line['quoted_status']['extended_tweet']['extended_entities']['media'])): 
                 print line['quoted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https']
-                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['quoted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https'], caption='推文图片', reply_to_message_id=r['message_id'])
+                bot.send_photo(chat_id=cfg.CHAT_ID, photo=line['quoted_status']['extended_tweet']['extended_entities']['media'][i]['media_url_https'] + '?format=jpg&name=orig', caption='推文图片', reply_to_message_id=r['message_id'])
         if line['quoted_status']['extended_tweet']['extended_entities']['media'][0]['type'] == 'video': 
             print u'媒体是视频'
             for m in range(0, len(line['quoted_status']['extended_tweet']['extended_entities']['media'][0]['video_info']['variants'])):
