@@ -38,7 +38,7 @@ def getMediaForPost(line, r):
                 else:
                     pass
             print max(mp4, key=operator.itemgetter('bitrate'))['url']
-            bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='推文视频')
+            bot.send_video(chat_id=cfg.CHAT_ID, video=str(max(mp4, key=operator.itemgetter('bitrate'))['url']), caption='推文视频', reply_to_message_id=r['message_id'])
             del mp4[:]
     else:
         pass
