@@ -1,6 +1,6 @@
 # AqoursTwitterStream
 
-This Python script is for forwarding Twitter statuses in real time to a bot in Telegram - a messaging application. By default, this script forwards Aqours' members tweets and I call it AqoursTwitterStream because the initiative was from them. If you want to forward tweets from different, make changes to the `AQOURS` variable.
+This Python script is for forwarding Twitter statuses in real time to a bot in Telegram - a messaging application. By default, this script forwards Aqours' members tweets and I call it AqoursTwitterStream because the initiative was from them. If you want to forward tweets from different people, make changes to the `AQOURS` variable.
 
 Following are the Twitter accounts of Aqours members (Japanese):
 
