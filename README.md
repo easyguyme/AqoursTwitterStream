@@ -1,6 +1,6 @@
-# Aqours 推特实时转发 Telegram
+# 推特实时转发 Telegram
 
-本 Python 脚本可以实现将 Aqours 成员推特实时转发到 Telegram 机器人的功能。本脚本同样也可以转发其他人的推特。Aqours 成员推特分别为（日语）：
+本 Python 脚本可以实现将推特实时转发到 Telegram 机器人的功能。因为这个程序由 Aqours 启发，所以程序默认转发 Aqours 成员的推特更新。如果需要转发其他人的推特更新，请修改 `AQOURS` 变量。Aqours 成员推特分别为（日语）：
 
 * [伊波杏樹](https://twitter.com/anju_inami)
 * [逢田梨香子](https://twitter.com/Rikako_Aida)
@@ -21,20 +21,20 @@
 
 ## 怎样使用
 
-您可以将本脚本部署到 VPS 或 Google App Engine 等平台。在使用之前您需要申请一个 Telegram 机器人以及 Twitter 应用程序。您同样也可以直接在 Telegram 上关注频道 [Aqours 推特 / 新闻快速报](https://t.me/AqoursTwitter)。
+您可以将本脚本部署到 VPS 或 Google App Engine 等平台。在使用之前您需要申请一个 Telegram 机器人以及 Twitter 应用程序。
 
 ### VPS
 
-请先确保您的 VPS 安装了 Git 以及 Python 2.6，然后运行以下命令：
+请先确保您的 VPS 安装了 Git 以及 Python，然后运行以下命令：
 
 ```
-cd AqoursTwitterStream/
 git clone https://github.com/MagaFun/AqoursTwitterStream.git
+cd AqoursTwitterStream/
 ```
 
-然后进入目录，在 `authconfig.py` 内粘贴自己的 Token，粘贴完毕后保存。
+然后进入 `AqoursTwitterStream` 目录，在 `AqoursTwitterStream.py` 内粘贴自己的 Token，粘贴完毕后保存。
 
-之后，若您想要让您刚才创建的机器人给您发送私人信息提醒 Aqours 成员推特更新的话，您需要编辑 `CHAT_ID`，您的 `CHAT_ID` 可以通过另一个机器人 [get_id_bot](https://telegram.me/get_id_bot) 来获取。
+之后，您可以设定机器人向一个频道发送信息。若您想要让您刚才创建的机器人给您发送私人信息提醒推特更新的话，您需要编辑 `CHAT_ID`，您的 `CHAT_ID` 可以通过另一个机器人 [get_id_bot](https://telegram.me/get_id_bot) 来获取。
 
 然后，直接运行如下命令：
 
@@ -44,7 +44,7 @@ pip install python-telegram-bot
 python AqoursTwitterStream.py
 ```
 
-如果机器人给您发送信息`程序已启动。`，说明脚本启动成功。
+如果机器人给您发送信息`Script has been restarted.`，说明脚本启动成功。
 
 脚本将在目录里创建 `output.log` 来记录一些日志，请您知悉。
 

@@ -1,6 +1,6 @@
 # AqoursTwitterStream
 
-This Python script is for forwarding Aqours' member's Twitter statuses in real time to a bot in Telegram - a messaging application. Of course it can also forward different people's tweets, I call it AqoursTwitterStream because the initiative was from them.
+This Python script is for forwarding Twitter statuses in real time to a bot in Telegram - a messaging application. By default, this script forwards Aqours' members tweets and I call it AqoursTwitterStream because the initiative was from them. If you want to forward tweets from different, make changes to the `AQOURS` variable.
 
 Following are the Twitter accounts of Aqours members (Japanese):
 
@@ -23,7 +23,7 @@ Features are:
 
 ## How to?
 
-You can deploy this script on a VPS, Google App Engine, or else. Before you start using it, you must have API keys from both Telegram ("bot token") and Twitter. If you think this is all too much trouble, you can follow [this channel](https://t.me/AqoursTwitter) in Telegram.
+You can deploy this script on a VPS, Google App Engine, or else. Before you start using it, you must have API keys from both Telegram ("bot token") and Twitter.
 
 ### VPS
 
@@ -34,7 +34,7 @@ git clone https://github.com/MagaFun/AqoursTwitterStream.git
 cd AqoursTwitterStream/
 ```
 
-Next, paste your token in the file: `authconfig.py`, then put your desired chat ID into `CHAT_ID` variable. 
+Next, paste your tokens in the file: `AqoursTwitterStream.py`. If you need the bot to send messages to a channel, put the channel name in the `CHAT_ID` variable, or you could put your personal chat ID if you wish the bot send messages to you only.
 
 You are all good to go now, run the command:
 
@@ -44,7 +44,7 @@ pip install python-telegram-bot
 python AqoursTwitterStream.py
 ```
 
-If you received a message `程序已启动。`, the script has been started. 
+If you received a message `Script has been restarted.`, the script has been started. 
 
 Please be informed that the script will create a file in the folder named `output.log` for error logging purpose.
 
