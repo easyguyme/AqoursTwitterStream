@@ -1,3 +1,5 @@
+> Note: I don't know what the heck is in Twitter's mind but apparently they are making a lot of changes to the APIs. The upcoming change could render this script useless. I probably won't make any further adaptations to the new APIs. 
+
 # 推特实时转发 Telegram (CN) Scroll down for EN_US or EN_GB
 
 本 Python 脚本可以实现将推特实时转发到 Telegram 机器人的功能。因为这个程序由 Aqours 启发，所以程序默认转发 Aqours 成员的推特更新。如果需要转发其他人的推特更新，请修改 `AQOURS` 变量。Aqours 成员推特分别为（日语）：
